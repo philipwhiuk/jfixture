@@ -7,7 +7,7 @@ public final class PropertyUtil {
         String name = method.getName();
         if (!name.startsWith("get")) return false;
 
-        Class[] parameterTypes = method.getParameterTypes();
+        Class<?>[] parameterTypes = method.getParameterTypes();
         if(parameterTypes.length !=0) return false;
 
         return hasMatchingSetter(method);

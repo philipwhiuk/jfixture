@@ -14,13 +14,13 @@ class MockitoAutoPropertySpecification implements Specification {
         }
 
         // No need to auto populate the properties of
-        // an interface/abs class because they'll be mocked
-        Class<?> requestClass = (Class)request;
+        // an interface/abstract class because they'll be mocked
+        Class<?> requestClass = (Class<?>)request;
         if(requestClass.isInterface() || Modifier.isAbstract(requestClass.getModifiers())) {
             return false;
         }
 
-        String requestName = ((Class)request).getName();
+        String requestName = ((Class<?>)request).getName();
         Boolean isAMock = requestName.contains("Mockito");
         return !isAMock;
     }

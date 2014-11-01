@@ -5,6 +5,7 @@ import com.flextrade.jfixture.SpecimenBuilder;
 import com.flextrade.jfixture.SpecimenContext;
 import com.flextrade.jfixture.exceptions.ObjectCreationException;
 import com.flextrade.jfixture.mockito.utility.PropertyUtil;
+import com.flextrade.jfixture.utility.SpecimenType;
 
 import org.mockito.Mockito;
 
@@ -17,11 +18,14 @@ class MockitoRelay implements SpecimenBuilder {
 
     @Override
     public Object create(Object request, SpecimenContext specimenContext) {
-        if (!(request instanceof Class)) {
+        
+        if (!(request instanceof SpecimenType)) {
             return new NoSpecimen();
         }
+        
+        SpecimenType<?> specimenType = (SpecimenType<?>)request;
+        Class<?> requestClass = specimenType.getRawType();
 
-        Class<?> requestClass = (Class) request;
         if (!requestClass.isInterface() && !Modifier.isAbstract(requestClass.getModifiers())) {
             return new NoSpecimen();
         }
